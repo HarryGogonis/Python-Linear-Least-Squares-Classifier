@@ -43,13 +43,23 @@ for i in range(len(y)):
 y = np.matrix(newY)
 
 
-# training set
-a = fit(x[:-5],y[:-5])
+size = x.shape[0] - 1
+# train with 50%
+a = fit(x[size/2:],y[size/2:])
 
-# predict new value
+# test with 50%
+i = size/2
+misses = 0
+hits = 0
+for test_x in x[size/2:size] :
+	prediction = predict(a,test_x)
+	actual = list(y[i].A1)
+	if prediction == actual:
+		hits += 1
+	else:
+		misses += 1
 
-i = -5
-for test_x in x[-5:] :
-	print predict(a,test_x)
-	print y[i]
-	i += 1
+total =  size/2 - 1
+print hits, misses, total
+accuracy = hits/float(hits+misses)*100
+print accuracy, "%"
