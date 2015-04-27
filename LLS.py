@@ -1,28 +1,28 @@
 from numpy.linalg import inv, solve
 import numpy as np
 from milksets import wine
+from random import shuffle
 
 
 # Build weight vector w
 def fit(x,y):
-	D = x[0].size + 1
-	K = y[0].size 
+	D = x.shape[1] + 1
+	K = y.shape[1]
 	sum1 = np.zeros((D,D))
 	sum2 = np.zeros((D,K))
 	i = 0
 	# build weight vector
 	for x_i in x:
-		x_i = np.append(1, x_i) # augment vector with a 1
+		x_i = np.append(1, x_i) # augment vector with a 1 
 		y_i = y[i]
 		sum1 += np.outer(x_i, x_i)		# find xi*xi_T
 		sum2 += np.outer(x_i, y_i)
 		i += 1
-
-	return inv(sum1).dot(sum2)	# return weight vector
+	return np.dot(inv(sum1),sum2)	# return weight vector
 
 
 def predict(W, x):
-	x = np.append([1], x)
+	x = np.append(1, x)
 	values = np.dot(W.T,x)
 	# winner take all
 	values = list(values)
@@ -43,24 +43,20 @@ def fixLabels(y):
 		newY.append(temp)
 	return np.matrix(newY)
 
-def test(x,y, split):
-	W = fit(x[:split],y[split:])
-	x = x[split:]
-	y = y[split:]
-	
+def test(a,b, split):
+	W = fit(a[:split],b[:split])
+	x = a[split:]
+	y = b[split:]
+	total = y.shape[0]
 	i = 0
-	misses = 0
 	hits = 0
-	for test_x in x :
-		prediction = predict(W,test_x)
+	for i in range(total):
+		prediction = predict(W,x[i])
 		actual = list(y[i].A1)
 		if prediction == actual:
 			hits += 1
-		else:
-			misses += 1
-
-	accuracy = hits/float(hits+misses)*100
-	print "Accuracy:", accuracy, "%"
+	accuracy = hits/float(total)*100
+	print "Accuracy = " + str(accuracy) + "%", "(" + str(hits) + "/" + str(total) + ")"
 
 def main():
 	# Load Data
@@ -69,18 +65,44 @@ def main():
 
 	size = x.shape[0] - 1
 
+	# shuffle data
+	z = []
+	for i in range(size):
+		z.append((x[i],y[i]))
+	shuffle(z)
+	for i in range(size):
+		x[i] = z[i][0]
+		y[i] = z[i][1]
+		
+	# scale data
+	for i in range(size):
+		x[i] = x[i] / 100
+	
+	# train/test data
+	#90/10 
+	print "90% Train/10% Test"
+	split = int(size * 0.9)
+	test(x,y,split)
+	print "------------------\n"
+	#60/30
+	print "60% Train/30% Test"
+	split = int(size * 0.6)
+	test(x,y,split)
+	print "------------------\n"
 	# 50/50	
 	print "50% Train/50% Test"
 	split = int(size * 0.5)
 	test(x,y,split)
+	print "------------------\n"
 	# 30/60
 	print "30% Train/60% Test"
 	split = int(size * 0.3)
 	test(x,y,split)
+	print "------------------\n"
 	# 10/90
 	print "10% Train/90% Test"
 	split = int(size * 0.1)
 	test(x,y,split)
-
+	print "------------------\n"
 if __name__ == "__main__":
 	main()
