@@ -2,7 +2,6 @@ from numpy.linalg import inv, solve
 import numpy as np
 from milksets import wine
 
-x,y = wine.load()
 
 # Build weight vector w
 def fit(x,y):
@@ -33,33 +32,55 @@ def predict(W, x):
 	y[values.index(winner)] = 1
 	return y
 
-# fix data for homemade classifer
-newY = []
-for i in range(len(y)):
-	size = max(y)
-	temp = [0 for j in range(size + 1)]
-	temp[y[i]] = 1
-	newY.append(temp)
-y = np.matrix(newY)
+# fix labels so it fits homemade classifer
+# Ex: 3 becomes [0 0 1]
+def fixLabels(y):
+	newY = []
+	for i in range(len(y)):
+		size = max(y)
+		temp = [0 for j in range(size + 1)]
+		temp[y[i]] = 1
+		newY.append(temp)
+	return np.matrix(newY)
 
+def test(x,y, split):
+	W = fit(x[:split],y[split:])
+	x = x[split:]
+	y = y[split:]
+	
+	i = 0
+	misses = 0
+	hits = 0
+	for test_x in x :
+		prediction = predict(W,test_x)
+		actual = list(y[i].A1)
+		if prediction == actual:
+			hits += 1
+		else:
+			misses += 1
 
-size = x.shape[0] - 1
-# train with 50%
-a = fit(x[size/2:],y[size/2:])
+	accuracy = hits/float(hits+misses)*100
+	print "Accuracy:", accuracy, "%"
 
-# test with 50%
-i = size/2
-misses = 0
-hits = 0
-for test_x in x[size/2:size] :
-	prediction = predict(a,test_x)
-	actual = list(y[i].A1)
-	if prediction == actual:
-		hits += 1
-	else:
-		misses += 1
+def main():
+	# Load Data
+	x,y = wine.load()
+	y = fixLabels(y)
 
-total =  size/2 - 1
-print hits, misses, total
-accuracy = hits/float(hits+misses)*100
-print accuracy, "%"
+	size = x.shape[0] - 1
+
+	# 50/50	
+	print "50% Train/50% Test"
+	split = int(size * 0.5)
+	test(x,y,split)
+	# 30/60
+	print "30% Train/60% Test"
+	split = int(size * 0.3)
+	test(x,y,split)
+	# 10/90
+	print "10% Train/90% Test"
+	split = int(size * 0.1)
+	test(x,y,split)
+
+if __name__ == "__main__":
+	main()
