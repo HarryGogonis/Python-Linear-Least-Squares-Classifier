@@ -2,7 +2,7 @@
 
 ## Usage
 
-`./LLS.py data_file [class_position]`
+`./LLS.py data_file [--head]`
 
 `data_file`
 is a file containing data attributes and classes on each line,
@@ -10,9 +10,11 @@ is a file containing data attributes and classes on each line,
 [UCI Repository](https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data).
 Classes can be words or numbers.
 
-`class_positon`
-    Location in each line of the class label.
-    Can be either head or tail. (Default: tail) 
+`--head`
+    (optional) Explicitly state the location of the class label is 
+	at the head of each line. Without this option,
+	default to the tail of the line.
+	If you are getting terrible accuracy, you may have forgot to enable this flag.
 
 # TODO
 * Seperate classifier implementation from driver. Make it more of a "libary"

@@ -72,13 +72,9 @@ def main():
 		sys.exit(1)
 	
 	print len(sys.argv)
-	classLocation = "tail"
-	if len(sys.argv) > 2:
-		classLocation = sys.argv[2]
-
-	if classLocation != "tail" and classLocation != "head":
-		print usage()
-		sys.exit(1)
+	head = False
+	if "--head" in sys.argv:
+		head = True
 	
 	data = []
 	classes = []
@@ -87,16 +83,16 @@ def main():
 		for line in f:
 			if line == "\n" or line == "": continue # skip empty lines
 			line = line.strip("\n").split(",")		# split line
-			if classLocation == "tail":
-				# Convert raw data to float and add to data list
-				data.append(map(lambda x: float(x), line[:-1]))
-				# Add class to list
-				classes.append(line[-1])
-			else:
+			if head:
 				# Convert raw data to float and add to data list
 				data.append(map(lambda x: float(x), line[0:]))
 				# Add class to list
 				classes.append(line[0])
+			else:
+				# Convert raw data to float and add to data list
+				data.append(map(lambda x: float(x), line[:-1]))
+				# Add class to list
+				classes.append(line[-1])
 	finally:
 		f.close()
 	
