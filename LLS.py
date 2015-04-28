@@ -71,7 +71,6 @@ def main():
 		print usage()
 		sys.exit(1)
 	
-	print len(sys.argv)
 	head = False
 	if "--head" in sys.argv:
 		head = True
@@ -99,7 +98,6 @@ def main():
 	classTypes = list(set(classes)) # list of distinct class types
 	# Convert class names to number
 	classes = map(lambda x: classTypes.index(x), classes)
-	print classes
 	
 	x = np.matrix(data)
 	y = fixLabels(classes)
