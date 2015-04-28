@@ -2,7 +2,7 @@
 
 ## Requirements
 * Python - tested with version 2.7.6
-* [Nummpy](http://docs.scipy.org/doc/numpy/user/index.html) - tested with version 1.8.2
+* [Numpy](http://docs.scipy.org/doc/numpy/user/index.html) - tested with version 1.8.2
 
 ## Usage
 
