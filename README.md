@@ -1,5 +1,9 @@
 #Linear Least Squares Classifier
 
+## Requirements
+* Python - tested with version 2.7.6
+* [Numpy](http://docs.scipy.org/doc/numpy/user/index.html) - tested with version 1.8.2
+
 ## Usage
 
 `./LLS.py data_file [--head]`
