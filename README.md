@@ -6,9 +6,13 @@
 
 `data_file`
 is a file containing data attributes and classes on each line,
- deliminated by a comma. Data must be formatted like those in the 
-[UCI Repository](https://archive.ics.uci.edu/ml/machine-learning-databases/wine/wine.data).
-Classes can be words or numbers.
+deliminated by a comma.
+* Data must be formatted like those in the 
+[UCI Repository](https://archive.ics.uci.edu/ml/datasets.html).
+* Example data sets from UCI are included in the repo:
+[iris.data](https://github.com/HarryGogonis/COT-Linear-Least-Square-Classifier/blob/master/iris.data) and
+[wine.data](https://github.com/HarryGogonis/COT-Linear-Least-Square-Classifier/blob/master/wine.data)
+* Classes can be words or numbers. **Attributes must be numbers at this time**
 
 `--head`
     (optional) Explicitly state the location of the class label is 
@@ -20,5 +24,4 @@ Classes can be words or numbers.
 * Seperate classifier implementation from driver. Make it more of a "libary"
 * Test on more datasets
 * Add workaround if matrix inverse doesn't exit, flip coin if tie in class winner
-* Improve docs
-
+* Allow attributrs to be names
