@@ -1,6 +1,7 @@
+#!/usr/bin/env python
 from numpy.linalg import inv, solve
 import numpy as np
-from milksets import wine
+import sys, os
 from random import shuffle
 
 
@@ -58,10 +59,54 @@ def test(a,b, split):
 	accuracy = hits/float(total)*100
 	print "Accuracy = " + str(accuracy) + "%", "(" + str(hits) + "/" + str(total) + ")"
 
+def usage():
+	return 'usage: %s <data file> [head/tail]\n' % os.path.basename( sys.argv[ 0 ] )
+
 def main():
 	# Load Data
-	x,y = wine.load()
-	y = fixLabels(y)
+	#x,y = wine.load()
+	#y = fixLabels(y)
+	
+	if len(sys.argv) < 2:
+		print usage()
+		sys.exit(1)
+	
+	print len(sys.argv)
+	classLocation = "tail"
+	if len(sys.argv) > 2:
+		classLocation = sys.argv[2]
+
+	if classLocation != "tail" and classLocation != "head":
+		print usage()
+		sys.exit(1)
+	
+	data = []
+	classes = []
+	f = open(sys.argv[1]) # open file
+	try:
+		for line in f:
+			if line == "\n" or line == "": continue # skip empty lines
+			line = line.strip("\n").split(",")		# split line
+			if classLocation == "tail":
+				# Convert raw data to float and add to data list
+				data.append(map(lambda x: float(x), line[:-1]))
+				# Add class to list
+				classes.append(line[-1])
+			else:
+				# Convert raw data to float and add to data list
+				data.append(map(lambda x: float(x), line[0:]))
+				# Add class to list
+				classes.append(line[0])
+	finally:
+		f.close()
+	
+	classTypes = list(set(classes)) # list of distinct class types
+	# Convert class names to number
+	classes = map(lambda x: classTypes.index(x), classes)
+	print classes
+	
+	x = np.matrix(data)
+	y = fixLabels(classes)
 
 	size = x.shape[0] - 1
 
@@ -76,7 +121,7 @@ def main():
 		
 	# scale data
 	for i in range(size):
-		x[i] = x[i] / 100
+		x[i] = x[i] / x.max()
 	
 	# train/test data
 	#90/10 
