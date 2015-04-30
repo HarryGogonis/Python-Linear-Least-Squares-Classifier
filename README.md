@@ -28,4 +28,18 @@ deliminated by a comma.
 You can also run all the data sets in this repo by executing `run_data.sh`
 
 # Description
-TODO :D
+This classifier works much like the libsvm classifier.
+Data must be seperated into training and testing data, were the class of 
+the training data is explictly known.
+
+
+The linear least squares function used during training is
+![equation 1](http://i.imgur.com/CuREKNc.gif)
+
+where ![equation 2](http://i.imgur.com/XPpduiv.gif).
+
+We can minimize this function with respect to W to obtain
+![equation 3](http://i.imgur.com/fYEyEXd.gif)
+
+During testing, we find the class by solving
+![equation 4](http://i.imgur.com/1OQTEd6.gif)
