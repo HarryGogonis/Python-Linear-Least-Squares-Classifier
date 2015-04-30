@@ -25,7 +25,7 @@ deliminated by a comma.
 	default to the tail of the line.
 	If you are getting terrible accuracy, you may have forgot to enable this flag.
 
-You can also run all the data sets in this repo by executing `run_data.sh`
+**You can also run all the data sets in this repo by executing** `run_data.sh`
 
 # Description
 This classifier works much like the libsvm classifier.
@@ -46,11 +46,12 @@ We can minimize this function with respect to W to obtain
 During testing, we find the class by solving
 ![equation 4](http://i.imgur.com/1OQTEd6.gif)
 
-## API Reference
+# API Reference
 Note: matrix referrs to a numpy matrix
 
 [`predict(W, x)`](https://bitbucket.org/cot4501group3/least-squares-classifier/src/ea33ea84eaf43c0d73d691abf58932d9b87c9e93/LLS.py?at=master#cl-43)
 Predict the class y of a single set of attributes
+
 * `matrix W` DxK Least squares weight matrix
 * `matrix x` 1xD matrix of attributes for testing
 * `return` List of 0’s and 1’s. Index with 1 is the class of x
