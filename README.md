@@ -1,10 +1,10 @@
 #Linear Least Squares Classifier
 
-## Requirements
+### Requirements
 * Python - tested with version 2.7.6
 * [Numpy](http://docs.scipy.org/doc/numpy/user/index.html) - tested with version 1.8.2
 
-## Usage
+### Usage
 
 `./LLS.py data_file [--head]`
 
@@ -24,8 +24,4 @@ deliminated by a comma.
 	default to the tail of the line.
 	If you are getting terrible accuracy, you may have forgot to enable this flag.
 
-# TODO
-* Seperate classifier implementation from driver. Make it more of a "libary"
-* Test on more datasets
-* Add workaround if matrix inverse doesn't exit, flip coin if tie in class winner
-* Allow attributrs to be names
+You can also run all the data sets in this repo by executing `run_data.sh`
