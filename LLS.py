@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from numpy.linalg import inv, solve, cond
+from numpy.linalg import inv, solve, matrix_rank
 import numpy as np
 import sys, os
 from random import shuffle, randint
@@ -29,7 +29,7 @@ def train(x,y):
 	
 	# Check that condition number is finite
 	# and therefore sum1 is nonsingular (invertable)
-	while not np.isfinite(cond(sum1)):
+	while matrix_rank(sum1) != D:
 		# Naive choice of sigma.
 		# Could cause inaccuracies when sum1 has small values
 		# However, in most cases the matrix WILL be invertable
