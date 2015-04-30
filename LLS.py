@@ -26,14 +26,14 @@ def train(x,y):
 		sum1 += np.outer(x_i, x_i)		# find xi*xi'
 		sum2 += np.outer(x_i, y_i)		# find xi*yi'
 		i += 1
-
+	
 	# Check that condition number is finite
 	# and therefore sum1 is nonsingular (invertable)
 	while not np.isfinite(cond(sum1)):
 		# Naive choice of sigma.
 		# Could cause inaccuracies when sum1 has small values
 		# However, in most cases the matrix WILL be invertable
-		sum1 = sum1 + np.eye(0.0001) 
+		sum1 = sum1 + 0.001 * np.eye(D) 
 
 	# Return weight vector
 	# Weight vector multiplies sums and inverse of sum1
@@ -139,6 +139,7 @@ def main():
 				data.append(map(lambda x: float(x), line[:-1]))
 				# Add class to list
 				classes.append(line[-1])
+			
 	finally:
 		f.close()
 	
