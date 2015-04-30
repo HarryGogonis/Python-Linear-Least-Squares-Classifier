@@ -34,7 +34,7 @@ def train(x,y):
 		# Could cause inaccuracies when sum1 has small values
 		# However, in most cases the matrix WILL be invertable
 		sum1 = sum1 + 0.001 * np.eye(D) 
-
+	
 	# Return weight vector
 	# Weight vector multiplies sums and inverse of sum1
 	return np.dot(inv(sum1),sum2)
