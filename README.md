@@ -68,7 +68,8 @@ Helper method that splits data into training and testing sets,
 trains the classifier using the training set,
 then predicts each of the testing data.
 Then it will compare the predicted result with the actual label
- and print the accuracy of the predicitons.
+and print the accuracy of the predicitons.
+
 * `matrix a`    All the attribute data
 * `matrix b`    All the classes that belong to each attribute
 * `int split`   Percent of data you want to train with
