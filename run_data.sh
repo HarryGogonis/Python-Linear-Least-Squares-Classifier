@@ -1,18 +1,29 @@
 #!/usr/bin/env sh
+
+SCRIPT=$(readlink -f "$0")
+SCRIPTPATH=$(dirname "$SCRIPT")
+LLS=LLS.py
+
 echo "====================================="
 echo "Iris Dataset:"
 echo "====================================="
-./LLS.py iris.csv
+$SCRIPTPATH/$LLS iris.csv
 echo "\n"
 
 echo "====================================="
 echo "Wine Dataset:"
 echo "====================================="
-./LLS.py wine.csv --head
+$SCRIPTPATH/$LLS wine.csv --head
 echo "\n"
 
+echo "====================================="
+echo "Parkinsons Dataset:"
+echo "====================================="
+$SCRIPTPATH/$LLS parkinson.csv
+echo "\n"
 
 echo "====================================="
-echo "Parkisons Dataset:"
+echo "Social Media Dataset:"
 echo "====================================="
-./LLS.py parkisons.csv
+$SCRIPTPATH/$LLS social-media.csv
+echo "\n"
