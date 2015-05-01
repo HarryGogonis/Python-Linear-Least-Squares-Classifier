@@ -44,7 +44,7 @@ We can minimize this function with respect to W to obtain
 ![equation 3](http://i.imgur.com/fYEyEXd.gif)
 
 During testing, we find the class by solving
-![equation 4](http://i.imgur.com/1OQTEd6.gif)
+![equation 4](http://i.imgur.com/61k0fwS.gif)
 
 # API Reference
 Note: matrix referrs to a numpy matrix
@@ -74,4 +74,3 @@ and print the accuracy of the predicitons.
 * `matrix a`    All the attribute data
 * `matrix b`    All the classes that belong to each attribute
 * `int split`   Percent of data you want to train with
-
